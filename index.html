@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>도규원 · 성악과 언어모델 사이</title>
+<meta name="description" content="성악을 전공하고 언어모델을 공부하는 대학생의 1페이지 소개 사이트입니다.">
+<meta name="theme-color" content="#101d2c">
+<meta property="og:title" content="도규원 · 성악과 언어모델 사이">
+<meta property="og:description" content="소리로 말하고, 언어로 탐구합니다.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23101d2c'/%3E%3Cpath d='M11 22V12l10-2v10' stroke='%23c9a227' stroke-width='2' fill='none'/%3E%3Ccircle cx='9' cy='22' r='2.5' fill='%23c9a227'/%3E%3Ccircle cx='19' cy='20' r='2.5' fill='%23c9a227'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');</script>
+<style>
+  :root{
+    --ink:#101d2c;
+    --ink-soft:#24384f;
+    --paper:#f7f4ef;
+    --paper-2:#efe9e0;
+    --wine:#7b2d3b;
+    --wine-soft:#a85563;
+    --gold:#b8912f;
+    --muted:#5c6b7a;
+    --line:rgba(16,29,44,.12);
+    --serif:"Noto Serif KR",Georgia,"Times New Roman",serif;
+    --sans:"Noto Sans KR",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    --radius:20px;
+    --max:1080px;
+    --pad:clamp(20px,5vw,40px);
+  }
+
+  *,*::before,*::after{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:var(--sans);
+    font-weight:400;
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    word-break:keep-all;
+  }
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  h1,h2,h3,p{margin:0}
+  ul{margin:0;padding:0;list-style:none}
+  ::selection{background:var(--wine);color:var(--paper)}
+  :focus-visible{outline:2px solid var(--wine);outline-offset:3px;border-radius:4px}
+
+  .wrap{width:100%;max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+
+  /* Header */
+  .site-header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(247,244,239,.86);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .header-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    height:68px;gap:24px;
+  }
+  .brand{
+    font-family:var(--serif);font-weight:600;font-size:1.05rem;
+    letter-spacing:.02em;display:flex;align-items:center;gap:10px;
+  }
+  .brand-dot{
+    width:9px;height:9px;border-radius:50%;
+    background:var(--wine);display:inline-block;flex:none;
+  }
+  .nav-links{display:flex;gap:clamp(14px,2.4vw,30px)}
+  .nav-links a{
+    font-size:.85rem;letter-spacing:.04em;color:var(--ink-soft);
+    padding:6px 2px;border-bottom:1px solid transparent;
+    transition:color .2s ease,border-color .2s ease;
+  }
+  .nav-links a:hover{color:var(--wine);border-color:var(--wine)}
+
+  /* Sections */
+  section{scroll-margin-top:84px}
+  .section{padding:clamp(72px,9vw,118px) 0}
+  .section-head{max-width:640px;margin-bottom:clamp(36px,5vw,56px)}
+  .eyebrow{
+    font-size:.72rem;font-weight:700;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--wine);margin-bottom:14px;
+  }
+  .section-title{
+    font-family:var(--serif);font-weight:600;
+    font-size:clamp(1.6rem,3.4vw,2.3rem);
+    line-height:1.35;letter-spacing:-.01em;
+  }
+  .lede{margin-top:16px;color:var(--muted);font-size:.98rem;font-weight:300}
+
+  /* Hero */
+  .hero{padding:clamp(48px,7vw,96px) 0 clamp(64px,8vw,104px)}
+  .hero-grid{
+    display:grid;grid-template-columns:1.08fr .92fr;
+    gap:clamp(36px,6vw,72px);align-items:center;
+  }
+  .hero-title{
+    font-family:var(--serif);font-weight:600;
+    font-size:clamp(2.1rem,5.2vw,3.6rem);
+    line-height:1.28;letter-spacing:-.02em;
+    margin:0 0 22px;
+  }
+  .hero-title em{
+    font-style:italic;color:var(--wine);
+  }
+  .hero-sub{
+    color:var(--muted);font-weight:300;
+    font-size:clamp(.98rem,1.6vw,1.08rem);
+    max-width:32em;margin-bottom:32px;
+  }
+  .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:28px}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:13px 24px;border-radius:999px;border:1px solid transparent;
+    font-size:.9rem;font-weight:500;letter-spacing:.01em;
+    transition:transform .2s ease,box-shadow .2s ease,background .2s ease,color .2s ease,border-color .2s ease;
+  }
+  .btn-primary{background:var(--ink);color:var(--paper)}
+  .btn-primary:hover{background:var(--wine);transform:translateY(-2px);box-shadow:0 10px 24px rgba(123,45,59,.25)}
+  .btn-ghost{border-color:var(--line);color:var(--ink-soft);background:transparent}
+  .btn-ghost:hover{border-color:var(--wine);color:var(--wine);transform:translateY(-2px)}
+  .hero-meta{
+    display:flex;flex-wrap:wrap;gap:8px 18px;
+    font-size:.78rem;letter-spacing:.06em;color:var(--muted);
+    text-transform:uppercase;
+  }
+  .hero-meta span{display:inline-flex;align-items:center;gap:8px}
+  .hero-meta span::before{
+    content:"";width:4px;height:4px;border-radius:50%;
+    background:var(--gold);flex:none;
+  }
+
+  .hero-visual{
+    position:relative;border-radius:26px;overflow:hidden;
+    background:
+      radial-gradient(120% 90% at 82% 12%,rgba(184,145,47,.30),transparent 58%),
+      radial-gradient(100% 80% at 12% 92%,rgba(168,85,99,.34),transparent 60%),
+      linear-gradient(160deg,#15263a 0%,#101d2c 55%,#0b1624 100%);
+    padding:clamp(22px,3vw,34px);
+    box-shadow:0 30px 60px -30px rgba(16,29,44,.55);
+    min-height:340px;
+    display:flex;flex-direction:column;justify-content:space-between;
+  }
+  .visual-top{
+    display:flex;align-items:center;justify-content:space-between;
+    font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;
+    color:rgba(247,244,239,.62);
+  }
+  .visual-top .live{
+    display:inline-flex;align-items:center;gap:7px;
+  }
+  .visual-top .live::before{
+    content:"";width:6px;height:6px;border-radius:50%;
+    background:var(--gold);box-shadow:0 0 0 4px rgba(184,145,47,.18);
+  }
+  .waveform{
+    display:flex;align-items:center;justify-content:center;
+    gap:5px;height:clamp(130px,20vw,180px);
+    margin:18px 0;
+  }
+  .waveform i{
+    display:block;width:4px;border-radius:999px;
+    background:linear-gradient(180deg,var(--gold),var(--wine-soft));
+    height:12%;
+    animation:pulse 2.6s ease-in-out infinite alternate;
+  }
+  @keyframes pulse{
+    from{transform:scaleY(.35);opacity:.55}
+    to{transform:scaleY(1);opacity:1}
+  }
+  .visual-bottom{
+    border-top:1px solid rgba(247,244,239,.14);
+    padding-top:16px;
+  }
+  .visual-caption{
+    font-family:var(--serif);color:rgba(247,244,239,.9);
+    font-size:.95rem;line-height:1.6;
+  }
+  .visual-tags{
+    display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;
+  }
+  .visual-tags span{
+    font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;
+    color:rgba(247,244,239,.6);
+    border:1px solid rgba(247,244,239,.18);
+    border-radius:999px;padding:4px 10px;
+  }
+
+  /* About */
+  .about-grid{
+    display:grid;grid-template-columns:.9fr 1.1fr;
+    gap:clamp(32px,6vw,72px);align-items:start;
+  }
+  .about-quote{
+    font-family:var(--serif);font-weight:400;
+    font-size:clamp(1.3rem,2.6vw,1.75rem);
+    line-height:1.6;letter-spacing:-.01em;
+    padding-left:22px;border-left:2px solid var(--gold);
+  }
+  .about-quote strong{font-weight:600;color:var(--wine)}
+  .about-body p{color:var(--muted);font-weight:300;margin-bottom:16px}
+  .about-body p:last-of-type{margin-bottom:24px}
+  .tags{display:flex;flex-wrap:wrap;gap:8px}
+  .tags li{
+    font-size:.76rem;letter-spacing:.02em;color:var(--ink-soft);
+    background:var(--paper-2);border:1px solid var(--line);
+    border-radius:999px;padding:6px 13px;
+  }
+
+  /* Cards */
+  .card-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));
+    gap:clamp(16px,2.4vw,24px);
+  }
+  .card{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:clamp(22px,3vw,30px);
+    transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease;
+    display:flex;flex-direction:column;
+  }
+  .card:hover{
+    transform:translateY(-4px);
+    border-color:rgba(123,45,59,.3);
+    box-shadow:0 20px 40px -28px rgba(16,29,44,.45);
+  }
+  .card-num{
+    font-family:var(--serif);font-size:.8rem;letter-spacing:.16em;
+    color:var(--gold);margin-bottom:20px;
+  }
+  .card h3{
+    font-family:var(--serif);font-weight:600;font-size:1.16rem;
+    margin-bottom:10px;letter-spacing:-.01em;
+  }
+  .card p{color:var(--muted);font-weight:300;font-size:.9rem;line-height:1.75}
+  .card-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:20px}
+  .card-tags li{
+    font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--wine);background:rgba(123,45,59,.07);
+    border-radius:4px;padding:4px 8px;
+  }
+  .card-meta{
+    margin-top:auto;padding-top:18px;
+    font-size:.72rem;letter-spacing:.06em;color:var(--muted);
+    border-top:1px dashed var(--line);
+  }
+  .card-meta b{font-weight:500;color:var(--ink-soft)}
+
+  /* Skills */
+  .skills-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:clamp(24px,4vw,48px);
+  }
+  .skill-group h3{
+    font-size:.74rem;font-weight:700;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--wine);
+    padding-bottom:12px;margin-bottom:16px;
+    border-bottom:1px solid var(--line);
+  }
+  .skill-group li{
+    display:flex;align-items:baseline;justify-content:space-between;
+    gap:16px;padding:9px 0;
+    font-size:.92rem;color:var(--ink-soft);
+    border-bottom:1px solid rgba(16,29,44,.06);
+  }
+  .skill-group li:last-child{border-bottom:0}
+  .skill-group li span{
+    font-size:.7rem;letter-spacing:.06em;color:var(--muted);
+    text-transform:uppercase;flex:none;
+  }
+
+  /* Contact */
+  .contact{
+    padding:0 0 clamp(72px,9vw,118px);
+  }
+  .contact-panel{
+    position:relative;overflow:hidden;
+    background:
+      radial-gradient(90% 120% at 88% 0%,rgba(184,145,47,.24),transparent 55%),
+      radial-gradient(80% 120% at 0% 100%,rgba(168,85,99,.30),transparent 55%),
+      linear-gradient(150deg,#15263a,#101d2c 60%,#0b1624);
+    color:var(--paper);
+    border-radius:28px;
+    padding:clamp(36px,6vw,68px);
+    display:grid;grid-template-columns:1.1fr .9fr;
+    gap:clamp(28px,5vw,56px);align-items:center;
+  }
+  .contact-panel .eyebrow{color:var(--gold)}
+  .contact-title{
+    font-family:var(--serif);font-weight:600;
+    font-size:clamp(1.7rem,3.8vw,2.5rem);
+    line-height:1.35;letter-spacing:-.01em;margin-bottom:16px;
+  }
+  .contact-panel p{color:rgba(247,244,239,.7);font-weight:300;font-size:.95rem}
+  .contact-actions{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:26px}
+  .btn-light{background:var(--paper);color:var(--ink)}
+  .btn-light:hover{background:var(--gold);transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.25)}
+  .btn-outline{border-color:rgba(247,244,239,.28);color:var(--paper)}
+  .btn-outline:hover{border-color:var(--paper);background:rgba(247,244,239,.08);transform:translateY(-2px)}
+  .contact-list{display:grid;gap:10px;font-size:.9rem}
+  .contact-list a,.contact-list span{
+    display:flex;align-items:center;justify-content:space-between;
+    gap:16px;padding:13px 16px;
+    border:1px solid rgba(247,244,239,.16);border-radius:12px;
+    color:rgba(247,244,239,.85);
+    transition:border-color .2s ease,background .2s ease,color .2s ease;
+  }
+  .contact-list a:hover{
+    border-color:var(--gold);background:rgba(247,244,239,.06);color:#fff;
+  }
+  .contact-list small{
+    font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;
+    color:rgba(247,244,239,.5);
+  }
+
+  /* Footer */
+  .site-footer{border-top:1px solid var(--line);padding:26px 0}
+  .footer-inner{
+    display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;
+    font-size:.76rem;letter-spacing:.02em;color:var(--muted);
+  }
+
+  /* Reveal */
+  .js .reveal{opacity:0;transform:translateY(18px)}
+  .js .reveal.is-visible{
+    opacity:1;transform:none;
+    transition:opacity .7s ease,transform .7s cubic-bezier(.22,.61,.36,1);
+  }
+
+  /* Responsive */
+  @media (max-width:880px){
+    .hero-grid{grid-template-columns:1fr}
+    .hero-visual{min-height:300px;order:2}
+    .about-grid{grid-template-columns:1fr}
+    .contact-panel{grid-template-columns:1fr}
+  }
+  @media (max-width:720px){
+    .nav-links{display:none}
+    .header-inner{height:60px}
+    section{scroll-margin-top:74px}
+    .hero{padding-top:40px}
+    .hero-meta{font-size:.72rem}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
+    .js .reveal{opacity:1;transform:none}
+    .waveform i{animation:none;transform:scaleY(.7);opacity:.8}
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="#top">
+      <span class="brand-dot" aria-hidden="true"></span>
+      도규원
+    </a>
+    <nav class="nav-links" aria-label="주요 섹션">
+      <a href="#about">소개</a>
+      <a href="#work">관심사</a>
+      <a href="#projects">프로젝트</a>
+      <a href="#skills">기술</a>
+      <a href="#contact">연락</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy reveal">
+        <p class="eyebrow">Vocal &times; LLM</p>
+        <h1 class="hero-title">소리로 말하고,<br><em>언어</em>로 탐구합니다.</h1>
+        <p class="hero-sub">
+          성악을 전공하는 대학생입니다. 무대 위의 호흡과 감정, 그리고 그 너머의
+          언어모델을 함께 공부하며 예술과 기술이 만나는 지점을 찾고 있습니다.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#projects">프로젝트 보기</a>
+          <a class="btn btn-ghost" href="#contact">연락하기</a>
+        </div>
+        <div class="hero-meta">
+          <span>대한민국</span>
+          <span>성악 전공</span>
+          <span>LLM 탐구</span>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal" aria-hidden="true">
+        <div class="visual-top">
+          <span>Vocal / Language</span>
+          <span class="live">Exploring</span>
+        </div>
+        <div class="waveform" id="waveform"></div>
+        <div class="visual-bottom">
+          <p class="visual-caption">호흡은 데이터가 되고,<br>언어는 다시 소리가 됩니다.</p>
+          <div class="visual-tags">
+            <span>Voice</span>
+            <span>Text</span>
+            <span>Model</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">About</p>
+        <h2 class="section-title">무대의 언어에서, 언어의 모델로</h2>
+      </div>
+      <div class="about-grid">
+        <blockquote class="about-quote reveal">
+          호흡과 발음이 언어의 리듬을 만든다고 믿습니다.
+          이제는 <strong>그 리듬을 모델에게 가르치는 법</strong>을 공부합니다.
+        </blockquote>
+        <div class="about-body reveal">
+          <p>
+            성악을 전공하며 발성과 딕션, 악보 읽기와 무대 경험을 쌓아 왔습니다.
+            같은 문장도 어떤 호흡으로 전하느냐에 따라 전혀 다른 의미가 된다는 것을
+            무대에서 배웠습니다.
+          </p>
+          <p>
+            최근에는 언어모델을 공부하며 가사 분석, 발음 교정, 연습 기록 정리처럼
+            음악 주변의 실제 문제에 어떻게 적용할 수 있을지 실험하고 있습니다.
+            도구를 쓰는 데서 그치지 않고, 원리를 이해하는 사람이 되고 싶습니다.
+          </p>
+          <ul class="tags" aria-label="키워드">
+            <li>성악</li>
+            <li>클래식 발성</li>
+            <li>딕션</li>
+            <li>Python</li>
+            <li>Prompt Engineering</li>
+            <li>LLM</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="work" style="background:var(--paper-2)">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">What I Do</p>
+        <h2 class="section-title">세 가지 관심의 축</h2>
+        <p class="lede">성악, 언어모델, 그리고 그 사이의 접점을 오가며 공부합니다.</p>
+      </div>
+      <div class="card-grid">
+        <article class="card reveal">
+          <p class="card-num">01</p>
+          <h3>성악 &middot; 공연</h3>
+          <p>
+            발성과 딕션을 중심으로 클래식 레퍼토리를 공부합니다. 앙상블과 무대 경험을
+            통해 소리가 공간과 관객을 만나는 방식을 배웁니다.
+          </p>
+          <ul class="card-tags">
+            <li>발성</li><li>딕션</li><li>앙상블</li><li>무대</li>
+          </ul>
+        </article>
+
+        <article class="card reveal">
+          <p class="card-num">02</p>
+          <h3>LLM &middot; AI</h3>
+          <p>
+            언어모델의 구조와 활용법을 공부하고, 프롬프트 설계와 작은 실험을 꾸준히
+            기록합니다. 결과뿐 아니라 작동 원리를 이해하려 합니다.
+          </p>
+          <ul class="card-tags">
+            <li>Python</li><li>Prompt</li><li>API</li><li>실험 노트</li>
+          </ul>
+        </article>
+
+        <article class="card reveal">
+          <p class="card-num">03</p>
+          <h3>예술 &times; 기술</h3>
+          <p>
+            가사와 발음, 연습 기록처럼 음악 주변의 언어 데이터를 다룹니다.
+            성악 전공의 감각을 기술의 언어로 옮기는 작업을 좋아합니다.
+          </p>
+          <ul class="card-tags">
+            <li>가사 분석</li><li>음성-텍스트</li><li>자동화</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="projects">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Projects</p>
+        <h2 class="section-title">작고 꾸준한 실험들</h2>
+        <p class="lede">완성된 결과보다, 문제를 정의하고 시도한 과정을 기록합니다.</p>
+      </div>
+      <div class="card-grid">
+        <article class="card reveal">
+          <p class="card-num">Case 01</p>
+          <h3>아리아 가사 감정 지도</h3>
+          <p>
+            오페라 아리아 가사를 문장 단위로 나누고, 감정의 흐름과 딕션 포인트를
+            언어모델로 정리한 개인 학습 노트입니다.
+          </p>
+          <p class="card-meta"><b>Python</b> &middot; LLM API &middot; 2026</p>
+        </article>
+
+        <article class="card reveal">
+          <p class="card-num">Case 02</p>
+          <h3>발음 연습 피드백 실험</h3>
+          <p>
+            녹음 파일을 텍스트로 변환한 뒤 원문 가사와 비교해, 어긋난 발음을
+            표시해 주는 작은 실험을 진행하고 있습니다.
+          </p>
+          <p class="card-meta"><b>Whisper</b> &middot; Python &middot; 진행 중</p>
+        </article>
+
+        <article class="card reveal">
+          <p class="card-num">Case 03</p>
+          <h3>연습 일지 주간 리포트</h3>
+          <p>
+            매일 남긴 짧은 연습 메모를 모아 주간 요약과 다음 주 목표를 만들어 주는
+            도구를 만들고 있습니다.
+          </p>
+          <p class="card-meta"><b>LLM</b> &middot; Notion API &middot; 진행 중</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="skills" style="background:var(--paper-2)">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Skills &amp; Tools</p>
+        <h2 class="section-title">지금 다루는 것들</h2>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-group reveal">
+          <h3>Music</h3>
+          <ul>
+            <li>클래식 발성 <span>Core</span></li>
+            <li>딕션 (이탈리아어 &middot; 독일어) <span>Study</span></li>
+            <li>악보 읽기 <span>Core</span></li>
+            <li>앙상블 &middot; 무대 경험 <span>Stage</span></li>
+          </ul>
+        </div>
+        <div class="skill-group reveal">
+          <h3>Technology</h3>
+          <ul>
+            <li>Python <span>Learning</span></li>
+            <li>LLM 활용 <span>Practice</span></li>
+            <li>프롬프트 설계 <span>Practice</span></li>
+            <li>Git &middot; 데이터 정리 <span>Basic</span></li>
+          </ul>
+        </div>
+        <div class="skill-group reveal">
+          <h3>Tools</h3>
+          <ul>
+            <li>ChatGPT &middot; Claude <span>Daily</span></li>
+            <li>VS Code <span>Editor</span></li>
+            <li>Notion <span>Notes</span></li>
+            <li>Google Colab <span>Experiment</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <div class="contact-panel reveal">
+        <div>
+          <p class="eyebrow">Contact</p>
+          <h2 class="contact-title">같이 이야기해요.</h2>
+          <p>
+            공연과 협업, AI 실험 아이디어 모두 환영합니다.
+            편하게 메일을 보내 주세요.
+          </p>
+          <div class="contact-actions" style="margin-top:26px">
+            <a class="btn btn-light" href="mailto:hello@example.com">이메일 보내기</a>
+            <a class="btn btn-outline" href="https://github.com/swpt1234" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+        <div class="contact-list">
+          <a href="mailto:hello@example.com">
+            <span>hello@example.com</span>
+            <small>Email</small>
+          </a>
+          <a href="https://github.com/swpt1234" target="_blank" rel="noopener noreferrer">
+            <span>github.com/swpt1234</span>
+            <small>GitHub</small>
+          </a>
+          <a href="https://www.youtube.com/@yourname" target="_blank" rel="noopener noreferrer">
+            <span>youtube.com/@yourname</span>
+            <small>Stage</small>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <span>&copy; 2026 도규원 &middot; 성악과 언어모델 사이</span>
+    <span>HTML &amp; CSS로 직접 만들었습니다.</span>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var wave = document.getElementById('waveform');
+    if (wave) {
+      var count = 28;
+      for (var i = 0; i < count; i++) {
+        var bar = document.createElement('i');
+        var base = 18 + Math.abs(Math.sin(i * 0.55)) * 58 + (i % 4) * 4;
+        bar.style.height = Math.min(base, 92) + '%';
+        bar.style.animationDelay = (i * 0.07).toFixed(2) + 's';
+        bar.style.animationDuration = (2.2 + (i % 5) * 0.18).toFixed(2) + 's';
+        wave.appendChild(bar);
+      }
+    }
+
+    var items = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) {
+      items.forEach(function (el) { el.classList.add('is-visible'); });
+      return;
+    }
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    items.forEach(function (el) { observer.observe(el); });
+  })();
+</script>
+
+</body>
+</html>
